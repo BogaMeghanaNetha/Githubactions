@@ -17,17 +17,17 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t $DOCKER_USER/nodejs-eks-app .
-          docker tag $DOCKER_USER/nodejs-eks-app $DOCKER_USER/nodejs-eks-app:latest
+          docker build -t $DOCKER_USERNAME/nodejs-eks-app .
+          docker tag $DOCKER_USERNAME/nodejs-eks-app $DOCKER_USER/nodejs-eks-app:latest
 
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
-          username: $DOCKER_USER
-          password: $DOCKER_PASS
+          username: $DOCKER_USERNAME
+          password: $DOCKER_PASSWORD
 
       - name: Push to DockerHub
-        run: docker push $DOCKER_USER/nodejs-eks-app:latest
+        run: docker push $DOCKER_USERNAME/nodejs-eks-app:latest
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
