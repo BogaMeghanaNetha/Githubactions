@@ -43,4 +43,5 @@ jobs:
         run: |
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
+          kubectl rollout status deployment/nodejs-app
           kubectl get svc nodejs-app
