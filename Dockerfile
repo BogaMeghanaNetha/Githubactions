@@ -1,19 +1,18 @@
-FROM node:18-alpine
+# Use an official Node.js base image
+FROM node:18
+
+# Set working directory
 WORKDIR /app
 
-# Copy package files with explicit permissions
-COPY --chown=node:node package.json .
-COPY --chown=node:node package-lock.json .
+# Copy package.json and install dependencies
+COPY package*.json ./
+RUN npm install
 
-# Install production dependencies (clean cache)
-RUN npm ci --only=production --force && \
-    npm cache clean --force
+# Copy the rest of the app code
+COPY . .
 
-# Copy app files with correct permissions
-COPY --chown=node:node . .
-
-# Switch to non-root user
-USER node
-
+# Expose the app port
 EXPOSE 3000
+
+# Command to run the app
 CMD ["node", "index.js"]
